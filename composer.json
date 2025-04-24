@@ -14,8 +14,8 @@
         }
     },
     "require": {
-        "php": "^7.4|^8.0",
-        "orchestra/testbench": "^7.0"
+        "php": "^7.4|^8.0", // You can keep this or update it to ^8.1 if you need newer PHP versions
+        "orchestra/testbench": "^10.0" // Update to support Laravel 12.x
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
