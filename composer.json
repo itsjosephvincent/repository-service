@@ -1,0 +1,24 @@
+{
+    "name": "joseph/repository-service",
+    "description": "A repository service pattern generator",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Joseph\\RepositoryService\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "joseph",
+            "email": "josephvincentlimbaroc@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^10.2"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Joseph\\RepositoryService\\": "tests/"
+        }
+    }
+}
