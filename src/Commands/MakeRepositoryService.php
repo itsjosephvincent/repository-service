@@ -11,14 +11,11 @@ class MakeRepositoryService extends GeneratorCommand
 
     protected function getStub()
     {
-        // You can create stub files for the interface and class templates.
-        // For now, return null because we are generating it manually.
         return null;
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        // Returns the default namespace for the generated classes
         return $rootNamespace . '\Repositories';
     }
 
@@ -62,6 +59,7 @@ class MakeRepositoryService extends GeneratorCommand
         $filePath = app_path('Repositories/' . $fileName);
 
         if (!file_exists($filePath)) {
+            // Add "implements {$name}RepositoryInterface" to the class declaration
             $repositoryContent = "<?php\n\nnamespace App\\Repositories;\n\nuse App\\Interfaces\\Repository\\{$name}RepositoryInterface;\n\nclass {$name}Repository implements {$name}RepositoryInterface\n{\n";
             $repositoryContent .= $this->getRepositoryMethodsImplementation();
             $repositoryContent .= "\n}";
@@ -80,7 +78,7 @@ class MakeRepositoryService extends GeneratorCommand
 
         if (!file_exists($filePath)) {
             $serviceInterfaceContent = "<?php\n\nnamespace App\\Interfaces\\Service;\n\ninterface {$name}ServiceInterface\n{\n";
-            $serviceInterfaceContent .= $this->getServiceMethods();
+            $serviceInterfaceContent .= $this->getServiceMethods($name);
             $serviceInterfaceContent .= "\n}";
 
             file_put_contents($filePath, $serviceInterfaceContent);
@@ -96,8 +94,9 @@ class MakeRepositoryService extends GeneratorCommand
         $filePath = app_path('Services/' . $fileName);
 
         if (!file_exists($filePath)) {
+            // Add "implements {$name}ServiceInterface" to the class declaration
             $serviceClassContent = "<?php\n\nnamespace App\\Services;\n\nuse App\\Interfaces\\Service\\{$name}ServiceInterface;\n\nclass {$name}Service implements {$name}ServiceInterface\n{\n";
-            $serviceClassContent .= $this->getServiceMethodsImplementation();
+            $serviceClassContent .= $this->getServiceMethodsImplementation($name);
             $serviceClassContent .= "\n}";
 
             file_put_contents($filePath, $serviceClassContent);
@@ -124,59 +123,83 @@ class MakeRepositoryService extends GeneratorCommand
     {
         // Define the basic method implementations for the Repository Class
         return "
-            public function findMany(object \$payload, string \$sortField, string \$sortOrder)
-            {
-                // Implement method logic
-            }
+    public function findMany(object \$payload, string \$sortField, string \$sortOrder)
+    {
+        // Implement method logic here
+    }
 
-            public function findByUuid(string \$uuid)
-            {
-                // Implement method logic
-            }
+    public function findByUuid(string \$uuid)
+    {
+        // Implement method logic here
+    }
 
-            public function findById(int \$id)
-            {
-                // Implement method logic
-            }
+    public function findById(int \$id)
+    {
+        // Implement method logic here
+    }
 
-            public function create(object \$payload)
-            {
-                // Implement method logic
-            }
+    public function create(object \$payload)
+    {
+        // Implement method logic here
+    }
 
-            public function update(object \$payload, string \$uuid)
-            {
-                // Implement method logic
-            }
+    public function update(object \$payload, string \$uuid)
+    {
+        // Implement method logic here
+    }
 
-            public function delete(string \$uuid)
-            {
-                // Implement method logic
-            }
+    public function delete(string \$uuid)
+    {
+        // Implement method logic here
+    }
         ";
     }
 
-    protected function getServiceMethods()
+    protected function getServiceMethods($name)
     {
         // Define the methods for the Service Interface
         return "
-            public function handleRequest(object \$request);
-            public function processData(object \$data);
+    public function findMany{$name}(object \$payload);
+    public function find{$name}(string \$uuid);
+    public function find{$name}ById(int \$id);
+    public function create{$name}(object \$payload);
+    public function update{$name}(object \$payload, string \$uuid);
+    public function delete{$name}(string \$uuid);
         ";
     }
 
-    protected function getServiceMethodsImplementation()
+    protected function getServiceMethodsImplementation($name)
     {
         // Define the basic method implementations for the Service Class
         return "
-    public function handleRequest(object \$request)
+    public function findMany{$name}(object \$payload)
     {
-        // Implement method logic
+        // Implement method logic here
     }
 
-    public function processData(object \$data)
+    public function find{$name}(string \$uuid)
     {
-        // Implement method logic
+        // Implement method logic here
+    }
+
+    public function find{$name}ById(int \$id)
+    {
+        // Implement method logic here
+    }
+
+    public function create{$name}(object \$payload)
+    {
+        // Implement method logic here
+    }
+
+    public function update{$name}(object \$payload, string \$uuid)
+    {
+        // Implement method logic here
+    }
+
+    public function delete{$name}(string \$uuid)
+    {
+        // Implement method logic here
     }
         ";
     }
